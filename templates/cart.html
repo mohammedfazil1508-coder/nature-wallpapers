@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Cart - Animated Nature Wallpapers{% endblock %}
+
+{% block content %}
+<section class="section">
+    <h1 class="section-title">Your Cart</h1>
+    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem;">
+        
+        <div class="card" style="padding: 2rem; background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border);">
+            <div id="cart-container">
+                <!-- Cart items rendered by JS -->
+            </div>
+        </div>
+
+        <div class="card" style="padding: 2rem; background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); height: fit-content;">
+            <h3 style="color: var(--text-primary);">Order Summary</h3>
+            <div style="display: flex; justify-content: space-between; margin: 1.5rem 0; font-size: 1.2rem; font-weight: bold; color: var(--text-primary);">
+                <span>Total:</span>
+                <span style="color: var(--accent-green);">₹<span id="cart-total">0.00</span></span>
+            </div>
+            
+            {% if current_user.is_authenticated %}
+                <a href="/checkout" class="btn btn-primary" style="width: 100%; text-align: center;">Proceed to Checkout</a>
+            {% else %}
+                <p style="margin-bottom: 1rem; color: var(--text-secondary);">You must be logged in to checkout.</p>
+                <a href="/login?next=/cart" class="btn btn-glass" style="width: 100%; text-align: center; margin-left: 0;">Login to Checkout</a>
+            {% endif %}
+        </div>
+
+    </div>
+</section>
+{% endblock %}

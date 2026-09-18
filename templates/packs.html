@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Wallpaper Packs - Animated Nature Wallpapers{% endblock %}
+{% block content %}
+<section class="section">
+    <h1 class="section-title">Wallpaper Packs</h1>
+    <div class="grid">
+        {% for pack in packs %}
+        <div class="card">
+            <a href="/pack/{{ pack.id }}">
+                <div class="card-img-container">
+                    <img src="{{ url_for('static', filename='images/demo.jpg') }}" alt="{{ pack.name }}" class="card-img">
+                </div>
+            </a>
+            <div class="card-body">
+                <h3 class="card-title">{{ pack.name }}</h3>
+                <p style="color: #666; font-size: 0.9rem; margin-bottom: 0.5rem;">{{ pack.num_wallpapers }} Wallpapers</p>
+                <div class="card-price">₹{{ pack.price }}</div>
+                <div class="card-actions">
+                    <button class="btn btn-sm" onclick="addToCart({{ pack.id }}, 'pack', {{ pack.price }}, '{{ pack.name }}')">Buy Pack</button>
+                    <a href="/pack/{{ pack.id }}" class="btn btn-sm btn-outline" style="color:var(--text-color); border-color:var(--border-color);">View Details</a>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <p>No packs available.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

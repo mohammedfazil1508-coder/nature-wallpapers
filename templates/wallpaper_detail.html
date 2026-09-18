@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}{{ wallpaper.name }} - Animated Nature Wallpapers{% endblock %}
+{% block content %}
+<section class="section">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;">
+        <div>
+            <div style="border-radius: var(--radius); overflow: hidden; box-shadow: var(--card-shadow);">
+                <img src="{{ url_for('static', filename='images/demo.jpg') }}" alt="{{ wallpaper.name }}" style="width: 100%; display: block;">
+            </div>
+        </div>
+        <div>
+            <div class="card-category" style="color: var(--text-secondary); margin-bottom: 0.5rem; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px;">{{ wallpaper.category.name if wallpaper.category else 'General' }}</div>
+            <h1 style="font-size: 3rem; margin-bottom: 1rem; color: white;">{{ wallpaper.name }}</h1>
+            <p style="font-size: 2rem; font-weight: bold; color: var(--accent-green); margin-bottom: 1.5rem;">₹{{ wallpaper.price }}</p>
+            
+            <p style="color: var(--text-secondary); margin-bottom: 2rem; line-height: 1.8; font-size: 1.1rem;">
+                {{ wallpaper.description }}
+            </p>
+            
+            <ul style="list-style: none; margin-bottom: 2.5rem; color: var(--text-secondary); background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 1.5rem; border-radius: var(--radius-md);">
+                <li style="margin-bottom: 0.8rem;"><i class="fas fa-expand" style="margin-right: 10px; color: var(--accent-green);"></i> <strong style="color: white;">Resolution:</strong> {{ wallpaper.resolution or '4K (3840x2160)' }}</li>
+                <li><i class="fas fa-crop-alt" style="margin-right: 10px; color: var(--accent-green);"></i> <strong style="color: white;">Aspect Ratio:</strong> {{ wallpaper.aspect_ratio or '16:9' }}</li>
+            </ul>
+            
+            <div style="display: flex; gap: 1rem;">
+                <button class="btn btn-primary" style="flex: 1; padding: 1.2rem;" onclick="addToCart({{ wallpaper.id }}, 'single', {{ wallpaper.price }}, '{{ wallpaper.name }}'); location.href='/cart';">Buy Now</button>
+                <button class="btn btn-glass" style="flex: 1; padding: 1.2rem; margin-left: 0;" onclick="addToCart({{ wallpaper.id }}, 'single', {{ wallpaper.price }}, '{{ wallpaper.name }}')"><i class="fas fa-cart-plus" style="margin-right: 8px;"></i> Add to Cart</button>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

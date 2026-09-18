@@ -1,0 +1,58 @@
+{% extends 'admin/admin_base.html' %}
+{% block title %}Add Wallpaper - Admin{% endblock %}
+{% block content %}
+<section class="section">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <h1 class="section-title" style="margin-bottom: 0;">Add New Wallpaper</h1>
+        <a href="/admin" class="btn btn-outline" style="color:var(--text-color); border-color:var(--border-color);">Back to Dashboard</a>
+    </div>
+    
+    <div class="card" style="padding: 2rem; max-width: 800px; margin: 0 auto;">
+        <form action="/admin/wallpapers/add" method="POST" enctype="multipart/form-data">
+            <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Wallpaper Name *</label>
+                <input type="text" name="name" required style="width: 100%; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 8px;">
+            </div>
+            
+            <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Description</label>
+                <textarea name="description" rows="4" style="width: 100%; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 8px;"></textarea>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                <div>
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Category *</label>
+                    <select name="category_id" required style="width: 100%; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 8px;">
+                        {% for cat in categories %}
+                        <option value="{{ cat.id }}">{{ cat.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Price (₹) *</label>
+                    <input type="number" step="0.01" name="price" required style="width: 100%; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 8px;">
+                </div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                <div>
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Resolution</label>
+                    <input type="text" name="resolution" placeholder="e.g. 4K, 1920x1080" style="width: 100%; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 8px;">
+                </div>
+                <div>
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Aspect Ratio</label>
+                    <input type="text" name="aspect_ratio" placeholder="e.g. 16:9, 21:9" style="width: 100%; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 8px;">
+                </div>
+            </div>
+            
+            <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">High-Resolution Wallpaper File (Protected) *</label>
+                <input type="file" name="wallpaper_file" required accept="image/*" style="width: 100%; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 8px;">
+                <small style="color: #666;">This file is only accessible after payment verification.</small>
+            </div>
+            
+            <button type="submit" class="btn" style="width: 100%;">Add Wallpaper</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

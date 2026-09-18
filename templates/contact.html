@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Contact Us - Animated Nature Wallpapers{% endblock %}
+{% block content %}
+<section class="section" style="max-width: 800px;">
+    <h1 class="section-title">Contact Us</h1>
+    <div class="card" style="padding: 2rem; line-height: 1.8; text-align: center;">
+        <i class="fas fa-envelope" style="font-size: 3rem; color: var(--accent-color); margin-bottom: 1rem;"></i>
+        <h3 style="margin-bottom: 1rem;">Get in Touch</h3>
+        <p>If you have any questions about your order or our wallpapers, please email us at:</p>
+        <p style="font-size: 1.2rem; font-weight: bold; margin-top: 1rem;">
+            <a href="mailto:{{ settings.contact_email }}" style="color: var(--accent-color);">{{ settings.contact_email }}</a>
+        </p>
+    </div>
+</section>
+{% endblock %}

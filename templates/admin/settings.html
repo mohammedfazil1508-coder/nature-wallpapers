@@ -1,0 +1,45 @@
+{% extends 'admin/admin_base.html' %}
+{% block title %}Settings - Admin{% endblock %}
+{% block content %}
+<section class="section">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <h1 class="section-title" style="margin-bottom: 0;">Settings</h1>
+        <a href="/admin" class="btn btn-outline" style="color:var(--text-color); border-color:var(--border-color);">Back to Dashboard</a>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+        <div class="card" style="padding: 2rem;">
+            <h2 style="margin-bottom: 1.5rem;">Website Settings</h2>
+            <form action="/admin/settings" method="POST" enctype="multipart/form-data">
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">Site Name</label>
+                    <input type="text" name="site_name" value="{{ web_settings.site_name }}" required style="width: 100%; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 8px;">
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">Hero Title</label>
+                    <input type="text" name="hero_title" value="{{ web_settings.hero_title }}" required style="width: 100%; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 8px;">
+                </div>
+                
+                <h2 style="margin-bottom: 1.5rem; margin-top: 2rem;">UPI Settings</h2>
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">UPI ID</label>
+                    <input type="text" name="upi_id" value="{{ upi_settings.upi_id }}" required style="width: 100%; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 8px;">
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">UPI Name</label>
+                    <input type="text" name="upi_name" value="{{ upi_settings.upi_name }}" required style="width: 100%; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 8px;">
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">UPI QR Code Image</label>
+                    <input type="file" name="qr_code_image" accept="image/*" style="width: 100%; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 8px;">
+                    {% if upi_settings.qr_code_image %}
+                        <p style="margin-top: 0.5rem; color: var(--text-secondary); font-size: 0.9rem;">Current: {{ upi_settings.qr_code_image }}</p>
+                    {% endif %}
+                </div>
+                
+                <button type="submit" class="btn" style="width: 100%;">Save Settings</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

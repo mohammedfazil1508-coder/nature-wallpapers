@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}About Us - Animated Nature Wallpapers{% endblock %}
+{% block content %}
+<section class="section" style="max-width: 800px;">
+    <h1 class="section-title">About Us</h1>
+    <div class="card" style="padding: 2rem; line-height: 1.8;">
+        <p>{{ settings.about_text or 'Welcome to Animated Nature Wallpapers. We craft the most premium, cinematic nature wallpapers for your digital devices. Our mission is to bring the beauty of the outdoors straight to your screen.' }}</p>
+    </div>
+</section>
+{% endblock %}

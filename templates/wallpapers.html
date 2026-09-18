@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Wallpapers - Animated Nature Wallpapers{% endblock %}
+{% block content %}
+<section class="section" style="padding-top: 100px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem;">
+        <h1 class="section-title" style="margin-bottom: 0;">Explore Collection</h1>
+        <div>
+            <select onchange="location = this.value;" style="padding: 0.8rem 1.5rem; border-radius: var(--radius-pill); background: var(--glass-bg); border: 1px solid var(--glass-border); color: white; backdrop-filter: blur(10px);">
+                <option value="/wallpapers" style="color: black;">All Categories</option>
+                {% for cat in categories %}
+                <option value="/wallpapers?category={{ cat.id }}" {% if request.args.get('category')|int == cat.id %}selected{% endif %} style="color: black;">{{ cat.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    
+    <div class="masonry-grid">
+        {% for wallpaper in wallpapers %}
+        <div class="masonry-item">
+            <div class="pin-card" onclick="window.location='/wallpaper/{{ wallpaper.id }}'">
+                <img src="{{ url_for('static', filename='images/demo.jpg') }}" alt="{{ wallpaper.name }}" class="pin-img" style="height: {{ range(250, 450) | random }}px; object-fit: cover;">
+                <div class="pin-overlay">
+                    <button class="pin-save-btn" onclick="event.stopPropagation(); addToCart({{ wallpaper.id }}, 'single', {{ wallpaper.price }}, '{{ wallpaper.name }}')">
+                        <i class="fas fa-thumbtack" style="margin-right: 8px;"></i>Pin
+                    </button>
+                    <div class="pin-info">
+                        <div class="pin-title">{{ wallpaper.name }}</div>
+                        <div class="pin-price">₹{{ wallpaper.price }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <p style="color: var(--text-secondary); text-align: center; grid-column: 1/-1;">No wallpapers found in this category.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

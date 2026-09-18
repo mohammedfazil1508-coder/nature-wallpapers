@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Admin Panel{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .admin-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+        .admin-sidebar {
+            width: 250px;
+            background: #1e293b;
+            color: white;
+            padding: 2rem 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .admin-sidebar h2 {
+            padding: 0 2rem;
+            margin-bottom: 2rem;
+            color: #38bdf8;
+            font-size: 1.5rem;
+        }
+        .admin-nav a {
+            display: block;
+            padding: 1rem 2rem;
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .admin-nav a:hover, .admin-nav a.active {
+            background: #334155;
+            color: white;
+        }
+        .admin-nav a i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        .admin-main {
+            flex: 1;
+            background: #f1f5f9;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #cbd5e1;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar only shows if logged in as admin, else simple centered layout for login -->
+        {% if current_user.is_authenticated and current_user.is_admin %}
+        <div class="admin-sidebar">
+            <h2>Admin Panel</h2>
+            <div class="admin-nav">
+                <a href="/admin"><i class="fas fa-chart-line"></i> Dashboard</a>
+                <a href="/admin/wallpapers/add"><i class="fas fa-plus"></i> Add Wallpapers</a>
+                <a href="/admin/payments"><i class="fas fa-money-check"></i> Payments</a>
+                <a href="/admin/settings"><i class="fas fa-cog"></i> Settings</a>
+                
+                <div style="margin-top: 3rem; border-top: 1px solid #334155;"></div>
+                <a href="/" target="_blank"><i class="fas fa-external-link-alt"></i> View Store</a>
+                <a href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </div>
+        {% endif %}
+        
+        <div class="admin-main" {% if not (current_user.is_authenticated and current_user.is_admin) %}style="display: flex; align-items: center; justify-content: center;"{% endif %}>
+            <div style="width: 100%;">
+                <div class="alerts">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }}">{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                </div>
+                
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
