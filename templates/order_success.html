@@ -8,9 +8,9 @@
         <p style="font-size: 1.2rem; color: #555; margin-bottom: 2rem;">
             Thank you for your order! Your order ID is <strong>#{{ order.id }}</strong>.
         </p>
-        <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem; text-align: left;">
+        <div style="background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem; text-align: left;">
             <p style="margin-bottom: 0.5rem;"><strong>Payment Status:</strong> Pending Verification</p>
-            <p>Our team will manually verify your UPI payment (Reference: {{ order.payment.upi_reference }}). Once verified, you will be able to download your high-resolution wallpapers from your account.</p>
+            <p style="color: var(--text-secondary);">Our team will manually verify your UPI payment (Reference: {{ order.payment.upi_reference }}). Once verified, you will be able to download your high-resolution wallpapers from your account.</p>
         </div>
         <a href="/account" class="btn">View My Orders</a>
     </div>
