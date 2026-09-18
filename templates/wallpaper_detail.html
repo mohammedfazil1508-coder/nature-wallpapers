@@ -5,7 +5,11 @@
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;">
         <div>
             <div style="border-radius: var(--radius); overflow: hidden; box-shadow: var(--card-shadow);">
-                <img src="{{ url_for('static', filename='images/demo.jpg') }}" alt="{{ wallpaper.name }}" style="width: 100%; display: block;">
+                {% if wallpaper.preview_image %}
+                    <img src="{{ url_for('static', filename='images/' + wallpaper.preview_image) }}" alt="{{ wallpaper.name }}" style="width: 100%; display: block;">
+                {% else %}
+                    <img src="{{ url_for('static', filename='images/demo.jpg') }}" alt="{{ wallpaper.name }}" style="width: 100%; display: block;">
+                {% endif %}
             </div>
         </div>
         <div>
