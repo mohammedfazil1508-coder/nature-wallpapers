@@ -82,9 +82,9 @@ def add_wallpaper():
         aspect_ratio = request.form.get('aspect_ratio')
         
         wallpaper_file = request.files.get('wallpaper_file')
+        preview_file = request.files.get('preview_image')
         
         if wallpaper_file and wallpaper_file.filename != '':
-            # Basic save (in a real app, use secure_filename and create unique names)
             from werkzeug.utils import secure_filename
             import os
             from flask import current_app
@@ -93,6 +93,12 @@ def add_wallpaper():
             file_path = os.path.join(current_app.config['WALLPAPER_FOLDER'], filename)
             wallpaper_file.save(file_path)
             
+            preview_filename = None
+            if preview_file and preview_file.filename != '':
+                preview_filename = secure_filename(preview_file.filename)
+                preview_path = os.path.join(current_app.root_path, 'static', 'images', preview_filename)
+                preview_file.save(preview_path)
+            
             new_wallpaper = Wallpaper(
                 name=name,
                 description=description,
@@ -100,7 +106,8 @@ def add_wallpaper():
                 price=price,
                 resolution=resolution,
                 aspect_ratio=aspect_ratio,
-                file_path=filename
+                file_path=filename,
+                preview_image=preview_filename
             )
             
             db.session.add(new_wallpaper)
